@@ -1,0 +1,4 @@
+vendor_projetimie:
+    resource: "@VendorProjetimieBundle/Resources/config/routing.yml"
+    prefix:   /
+

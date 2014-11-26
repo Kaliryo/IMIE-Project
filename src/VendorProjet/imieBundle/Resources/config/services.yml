@@ -1,0 +1,7 @@
+parameters:
+#    vendor_projetimie.example.class: VendorProjet\imieBundle\Example
+
+services:
+#    vendor_projetimie.example:
+#        class: %vendor_projetimie.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
