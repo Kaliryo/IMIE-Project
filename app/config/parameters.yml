@@ -1,3 +1,4 @@
+# This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_mysql
     database_host: 127.0.0.1
@@ -10,5 +11,9 @@ parameters:
     mailer_user: null
     mailer_password: null
     locale: fr
+<<<<<<< HEAD
     secret: cd4827774abc7f54d785f76a9bb8be3706bb92b3
     database_path: null
+=======
+    secret: ThisTokenIsNotSoSecretChangeIt
+>>>>>>> origin/dev_flo
