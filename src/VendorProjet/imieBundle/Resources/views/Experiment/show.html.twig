@@ -1,0 +1,60 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Experiment</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Idexperiment</th>
+                <td>{{ entity.idExperiment }}</td>
+            </tr>
+            <tr>
+                <th>Resume</th>
+                <td>{{ entity.resume }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Datestart</th>
+                <td>{{ entity.dateStart|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Dateend</th>
+                <td>{{ entity.dateEnd|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Companyname</th>
+                <td>{{ entity.companyName }}</td>
+            </tr>
+            <tr>
+                <th>Place</th>
+                <td>{{ entity.place }}</td>
+            </tr>
+            <tr>
+                <th>Departmentnumber</th>
+                <td>{{ entity.departmentNumber }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('experiment') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('experiment_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -120,81 +120,171 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // vendor_projetimie_homepage
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'vendor_projetimie_homepage')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\DefaultController::indexAction',));
-        }
-
-        // _welcome
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', '_welcome');
-            }
-
-            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::indexAction',  '_route' => '_welcome',);
-        }
-
-        if (0 === strpos($pathinfo, '/demo')) {
-            if (0 === strpos($pathinfo, '/demo/secured')) {
-                if (0 === strpos($pathinfo, '/demo/secured/log')) {
-                    if (0 === strpos($pathinfo, '/demo/secured/login')) {
-                        // _demo_login
-                        if ($pathinfo === '/demo/secured/login') {
-                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::loginAction',  '_route' => '_demo_login',);
-                        }
-
-                        // _security_check
-                        if ($pathinfo === '/demo/secured/login_check') {
-                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::securityCheckAction',  '_route' => '_security_check',);
-                        }
-
-                    }
-
-                    // _demo_logout
-                    if ($pathinfo === '/demo/secured/logout') {
-                        return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::logoutAction',  '_route' => '_demo_logout',);
-                    }
-
+        if (0 === strpos($pathinfo, '/skill')) {
+            // skill
+            if (rtrim($pathinfo, '/') === '/skill') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_skill;
                 }
 
-                if (0 === strpos($pathinfo, '/demo/secured/hello')) {
-                    // acme_demo_secured_hello
-                    if ($pathinfo === '/demo/secured/hello') {
-                        return array (  'name' => 'World',  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',  '_route' => 'acme_demo_secured_hello',);
-                    }
-
-                    // _demo_secured_hello
-                    if (preg_match('#^/demo/secured/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',));
-                    }
-
-                    // _demo_secured_hello_admin
-                    if (0 === strpos($pathinfo, '/demo/secured/hello/admin') && preg_match('#^/demo/secured/hello/admin/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello_admin')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloadminAction',));
-                    }
-
-                }
-
-            }
-
-            // _demo
-            if (rtrim($pathinfo, '/') === '/demo') {
                 if (substr($pathinfo, -1) !== '/') {
-                    return $this->redirect($pathinfo.'/', '_demo');
+                    return $this->redirect($pathinfo.'/', 'skill');
                 }
 
-                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::indexAction',  '_route' => '_demo',);
+                return array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\SkillController::indexAction',  '_route' => 'skill',);
             }
+            not_skill:
 
-            // _demo_hello
-            if (0 === strpos($pathinfo, '/demo/hello') && preg_match('#^/demo/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::helloAction',));
-            }
+            // skill_create
+            if ($pathinfo === '/skill/') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_skill_create;
+                }
 
-            // _demo_contact
-            if ($pathinfo === '/demo/contact') {
-                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::contactAction',  '_route' => '_demo_contact',);
+                return array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\SkillController::createAction',  '_route' => 'skill_create',);
             }
+            not_skill_create:
+
+            // skill_new
+            if ($pathinfo === '/skill/new') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_skill_new;
+                }
+
+                return array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\SkillController::newAction',  '_route' => 'skill_new',);
+            }
+            not_skill_new:
+
+            // skill_show
+            if (preg_match('#^/skill/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_skill_show;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'skill_show')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\SkillController::showAction',));
+            }
+            not_skill_show:
+
+            // skill_edit
+            if (preg_match('#^/skill/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_skill_edit;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'skill_edit')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\SkillController::editAction',));
+            }
+            not_skill_edit:
+
+            // skill_update
+            if (preg_match('#^/skill/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'PUT') {
+                    $allow[] = 'PUT';
+                    goto not_skill_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'skill_update')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\SkillController::updateAction',));
+            }
+            not_skill_update:
+
+            // skill_delete
+            if (preg_match('#^/skill/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'DELETE') {
+                    $allow[] = 'DELETE';
+                    goto not_skill_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'skill_delete')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\SkillController::deleteAction',));
+            }
+            not_skill_delete:
+
+        }
+
+        if (0 === strpos($pathinfo, '/offer')) {
+            // offer
+            if (rtrim($pathinfo, '/') === '/offer') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_offer;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'offer');
+                }
+
+                return array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\OfferController::indexAction',  '_route' => 'offer',);
+            }
+            not_offer:
+
+            // offer_create
+            if ($pathinfo === '/offer/') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_offer_create;
+                }
+
+                return array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\OfferController::createAction',  '_route' => 'offer_create',);
+            }
+            not_offer_create:
+
+            // offer_new
+            if ($pathinfo === '/offer/new') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_offer_new;
+                }
+
+                return array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\OfferController::newAction',  '_route' => 'offer_new',);
+            }
+            not_offer_new:
+
+            // offer_show
+            if (preg_match('#^/offer/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_offer_show;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'offer_show')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\OfferController::showAction',));
+            }
+            not_offer_show:
+
+            // offer_edit
+            if (preg_match('#^/offer/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_offer_edit;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'offer_edit')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\OfferController::editAction',));
+            }
+            not_offer_edit:
+
+            // offer_update
+            if (preg_match('#^/offer/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'PUT') {
+                    $allow[] = 'PUT';
+                    goto not_offer_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'offer_update')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\OfferController::updateAction',));
+            }
+            not_offer_update:
+
+            // offer_delete
+            if (preg_match('#^/offer/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'DELETE') {
+                    $allow[] = 'DELETE';
+                    goto not_offer_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'offer_delete')), array (  '_controller' => 'VendorProjet\\imieBundle\\Controller\\OfferController::deleteAction',));
+            }
+            not_offer_delete:
 
         }
 

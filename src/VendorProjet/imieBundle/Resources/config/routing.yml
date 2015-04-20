@@ -1,3 +1,7 @@
-vendor_projetimie_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: VendorProjetimieBundle:Default:index }
+_skills:
+    resource: "@VendorProjetimieBundle/Controller/SkillController.php"
+    type:     annotation
+    
+_Offer:
+    resource: "@VendorProjetimieBundle/Controller/OfferController.php"
+    type:     annotation

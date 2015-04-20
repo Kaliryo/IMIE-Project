@@ -2,13 +2,13 @@ parameters:
     database_driver: pdo_mysql
     database_host: 127.0.0.1
     database_port: null
-    database_name: symfony
+    database_name: imie-project
     database_user: root
-    database_password: ketdro
+    database_password: null
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
     locale: fr
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: cd4827774abc7f54d785f76a9bb8be3706bb92b3
     database_path: null
