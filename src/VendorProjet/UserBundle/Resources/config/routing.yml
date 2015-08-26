@@ -1,0 +1,13 @@
+# VendorProjetimieBundle routes
+_imie-project:
+    resource: "@VendorProjetimieBundle/Resources/config/routing.yml"
+
+login:
+    pattern:   /login
+    defaults:  { _controller: OCUserBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout

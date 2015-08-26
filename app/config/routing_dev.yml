@@ -16,3 +16,13 @@ _main:
 # VendorProjetimieBundle routes
 _imie-project:
     resource: "@VendorProjetimieBundle/Resources/config/routing.yml"
+
+login:
+    pattern:   /login
+    defaults:  { _controller: VendorProjetUserBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout
