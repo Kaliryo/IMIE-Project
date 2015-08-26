@@ -5,3 +5,7 @@ _skills:
 _Offer:
     resource: "@VendorProjetimieBundle/Controller/OfferController.php"
     type:     annotation
+
+_Accueil:
+    resource: "@VendorProjetimieBundle/Controller/AccueilController.php"
+    type:     annotation    
