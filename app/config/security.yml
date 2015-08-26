@@ -4,10 +4,10 @@ security:
 
     role_hierarchy:
         ROLE_USER:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN:       [ROLE_USER, ROLE_COMPANY, ROLE_STUDENT]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-        ROLE_COMPANY: 
-        ROLE_STUDENT: 
+        ROLE_COMPANY: ROLE_USER
+        ROLE_STUDENT: ROLE_USER
 
     providers:
         in_memory:
@@ -15,6 +15,8 @@ security:
                 users:
                     user:  { password: a, roles: [ 'ROLE_USER' ] }
                     admin: { password: a, roles: [ 'ROLE_ADMIN' ] }
+                    company: { password: a, roles: [ 'ROLE_COMPANY' ] }
+                    student: { password: a, roles: [ 'ROLE_STUDENT' ] }
 
     firewalls:
         dev:

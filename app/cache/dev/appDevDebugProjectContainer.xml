@@ -275,14 +275,20 @@
       <parameter key="ROLE_USER" type="collection"/>
       <parameter key="ROLE_ADMIN" type="collection">
         <parameter>ROLE_USER</parameter>
+        <parameter>ROLE_COMPANY</parameter>
+        <parameter>ROLE_STUDENT</parameter>
       </parameter>
       <parameter key="ROLE_SUPER_ADMIN" type="collection">
         <parameter>ROLE_USER</parameter>
         <parameter>ROLE_ADMIN</parameter>
         <parameter>ROLE_ALLOWED_TO_SWITCH</parameter>
       </parameter>
-      <parameter key="ROLE_COMPANY" type="collection"/>
-      <parameter key="ROLE_STUDENT" type="collection"/>
+      <parameter key="ROLE_COMPANY" type="collection">
+        <parameter>ROLE_USER</parameter>
+      </parameter>
+      <parameter key="ROLE_STUDENT" type="collection">
+        <parameter>ROLE_USER</parameter>
+      </parameter>
     </parameter>
     <parameter key="twig.class">Twig_Environment</parameter>
     <parameter key="twig.loader.filesystem.class">Symfony\Bundle\TwigBundle\Loader\FilesystemLoader</parameter>
@@ -1884,7 +1890,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>55ddd005a72f06.07607566</argument>
+            <argument>55ddd28adb8af3.28632970</argument>
           </service>
         </argument>
         <argument type="service">
@@ -1945,14 +1951,20 @@
         <argument key="ROLE_USER" type="collection"/>
         <argument key="ROLE_ADMIN" type="collection">
           <argument>ROLE_USER</argument>
+          <argument>ROLE_COMPANY</argument>
+          <argument>ROLE_STUDENT</argument>
         </argument>
         <argument key="ROLE_SUPER_ADMIN" type="collection">
           <argument>ROLE_USER</argument>
           <argument>ROLE_ADMIN</argument>
           <argument>ROLE_ALLOWED_TO_SWITCH</argument>
         </argument>
-        <argument key="ROLE_COMPANY" type="collection"/>
-        <argument key="ROLE_STUDENT" type="collection"/>
+        <argument key="ROLE_COMPANY" type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
+        <argument key="ROLE_STUDENT" type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
       </argument>
     </service>
     <service id="security.firewall" class="Symfony\Component\Security\Http\Firewall">
@@ -2055,6 +2067,28 @@
           </service>
         </argument>
       </call>
+      <call method="createUser">
+        <argument type="service">
+          <service class="Symfony\Component\Security\Core\User\User" public="false">
+            <argument>company</argument>
+            <argument>a</argument>
+            <argument type="collection">
+              <argument>ROLE_COMPANY</argument>
+            </argument>
+          </service>
+        </argument>
+      </call>
+      <call method="createUser">
+        <argument type="service">
+          <service class="Symfony\Component\Security\Core\User\User" public="false">
+            <argument>student</argument>
+            <argument>a</argument>
+            <argument type="collection">
+              <argument>ROLE_STUDENT</argument>
+            </argument>
+          </service>
+        </argument>
+      </call>
     </service>
     <service id="security.firewall.map.context.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
       <argument type="collection"/>
@@ -2077,7 +2111,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>55ddd005a72f06.07607566</argument>
+            <argument>55ddd28adb8af3.28632970</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>

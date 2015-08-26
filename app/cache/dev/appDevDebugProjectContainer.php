@@ -1958,7 +1958,7 @@ class appDevDebugProjectContainer extends Container
         $a = $this->get('security.token_storage');
         $b = $this->get('monolog.logger.security', ContainerInterface::NULL_ON_INVALID_REFERENCE);
 
-        return $this->services['security.firewall.map.context.main_login'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($a, array(0 => $this->get('security.user.provider.concrete.in_memory')), 'main_login', $b, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE)), 2 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($a, '55ddd005a72f06.07607566', $b, $this->get('security.authentication.manager')), 3 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($a, $this->get('security.authentication.trust_resolver'), $this->get('security.http_utils'), 'main_login', NULL, NULL, NULL, $b, false));
+        return $this->services['security.firewall.map.context.main_login'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => $this->get('security.channel_listener'), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($a, array(0 => $this->get('security.user.provider.concrete.in_memory')), 'main_login', $b, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE)), 2 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($a, '55ddd28adb8af3.28632970', $b, $this->get('security.authentication.manager')), 3 => $this->get('security.access_listener')), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($a, $this->get('security.authentication.trust_resolver'), $this->get('security.http_utils'), 'main_login', NULL, NULL, NULL, $b, false));
     }
 
     /**
@@ -3326,7 +3326,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('55ddd005a72f06.07607566'), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.in_memory'), new \Symfony\Component\Security\Core\User\UserChecker(), 'main', $this->get('security.encoder_factory'), true)), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('55ddd28adb8af3.28632970'), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('security.user.provider.concrete.in_memory'), new \Symfony\Component\Security\Core\User\UserChecker(), 'main', $this->get('security.encoder_factory'), true)), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -3421,7 +3421,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_RoleHierarchyService()
     {
-        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_USER' => array(), 'ROLE_ADMIN' => array(0 => 'ROLE_USER'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_ADMIN', 2 => 'ROLE_ALLOWED_TO_SWITCH'), 'ROLE_COMPANY' => array(), 'ROLE_STUDENT' => array()));
+        return $this->services['security.role_hierarchy'] = new \Symfony\Component\Security\Core\Role\RoleHierarchy(array('ROLE_USER' => array(), 'ROLE_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_COMPANY', 2 => 'ROLE_STUDENT'), 'ROLE_SUPER_ADMIN' => array(0 => 'ROLE_USER', 1 => 'ROLE_ADMIN', 2 => 'ROLE_ALLOWED_TO_SWITCH'), 'ROLE_COMPANY' => array(0 => 'ROLE_USER'), 'ROLE_STUDENT' => array(0 => 'ROLE_USER')));
     }
 
     /**
@@ -3442,6 +3442,8 @@ class appDevDebugProjectContainer extends Container
 
         $instance->createUser(new \Symfony\Component\Security\Core\User\User('user', 'a', array(0 => 'ROLE_USER')));
         $instance->createUser(new \Symfony\Component\Security\Core\User\User('admin', 'a', array(0 => 'ROLE_ADMIN')));
+        $instance->createUser(new \Symfony\Component\Security\Core\User\User('company', 'a', array(0 => 'ROLE_COMPANY')));
+        $instance->createUser(new \Symfony\Component\Security\Core\User\User('student', 'a', array(0 => 'ROLE_STUDENT')));
 
         return $instance;
     }
@@ -3829,6 +3831,8 @@ class appDevDebugProjectContainer extends Container
                 ),
                 'ROLE_ADMIN' => array(
                     0 => 'ROLE_USER',
+                    1 => 'ROLE_COMPANY',
+                    2 => 'ROLE_STUDENT',
                 ),
                 'ROLE_SUPER_ADMIN' => array(
                     0 => 'ROLE_USER',
@@ -3836,10 +3840,10 @@ class appDevDebugProjectContainer extends Container
                     2 => 'ROLE_ALLOWED_TO_SWITCH',
                 ),
                 'ROLE_COMPANY' => array(
-
+                    0 => 'ROLE_USER',
                 ),
                 'ROLE_STUDENT' => array(
-
+                    0 => 'ROLE_USER',
                 ),
             ),
             'twig.class' => 'Twig_Environment',

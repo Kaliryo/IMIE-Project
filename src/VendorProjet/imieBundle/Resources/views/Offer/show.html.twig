@@ -30,11 +30,15 @@
             Back to the list
         </a>
     </li>
+    {% if is_granted('ROLE_COMPANY') %}
     <li>
         <a href="{{ path('offer_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>
-</ul>
+   
+        </ul>
+    {% endif %}
+
 {% endblock %}

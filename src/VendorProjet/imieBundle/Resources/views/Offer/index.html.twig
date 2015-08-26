@@ -25,21 +25,25 @@
                     <li>
                         <a href="{{ path('offer_show', { 'id': entity.id }) }}">show</a>
                     </li>
+                    {% if is_granted('ROLE_COMPANY') %}
                     <li>
                         <a href="{{ path('offer_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
+                    {% endif %}
                 </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+        {% if is_granted('ROLE_COMPANY') %}
         <ul>
         <li>
             <a href="{{ path('offer_new') }}">
                 Create a new entry
             </a>
         </li>
-    </ul>
+
+        </ul>
+        {% endif %}
     {% endblock %}
