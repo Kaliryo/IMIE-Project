@@ -272,6 +272,7 @@
     <parameter key="security.access.always_authenticate_before_granting">false</parameter>
     <parameter key="security.authentication.hide_user_not_found">true</parameter>
     <parameter key="security.role_hierarchy.roles" type="collection">
+      <parameter key="ROLE_USER" type="collection"/>
       <parameter key="ROLE_ADMIN" type="collection">
         <parameter>ROLE_USER</parameter>
       </parameter>
@@ -280,12 +281,8 @@
         <parameter>ROLE_ADMIN</parameter>
         <parameter>ROLE_ALLOWED_TO_SWITCH</parameter>
       </parameter>
-      <parameter key="ROLE_COMPANY" type="collection">
-        <parameter>ROLE_USER</parameter>
-      </parameter>
-      <parameter key="ROLE_STUDENT" type="collection">
-        <parameter>ROLE_USER</parameter>
-      </parameter>
+      <parameter key="ROLE_COMPANY" type="collection"/>
+      <parameter key="ROLE_STUDENT" type="collection"/>
     </parameter>
     <parameter key="twig.class">Twig_Environment</parameter>
     <parameter key="twig.loader.filesystem.class">Symfony\Bundle\TwigBundle\Loader\FilesystemLoader</parameter>
@@ -1850,7 +1847,11 @@
       </call>
       <call method="addSubscriberService">
         <argument>sensio_framework_extra.cache.listener</argument>
-        <argument>Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener</argument>
+        <argument>Sensio\Bundle\FrameworkExtraBundle\EventListener\HttpCacheListener</argument>
+      </call>
+      <call method="addSubscriberService">
+        <argument>sensio_framework_extra.security.listener</argument>
+        <argument>Sensio\Bundle\FrameworkExtraBundle\EventListener\SecurityListener</argument>
       </call>
       <call method="addSubscriberService">
         <argument>web_profiler.debug_toolbar</argument>
@@ -1883,7 +1884,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>55ddbb688e4ed1.24975041</argument>
+            <argument>55ddcf10a669f6.71873578</argument>
           </service>
         </argument>
         <argument type="service">
@@ -1941,6 +1942,7 @@
     </service>
     <service id="security.role_hierarchy" class="Symfony\Component\Security\Core\Role\RoleHierarchy" public="false">
       <argument type="collection">
+        <argument key="ROLE_USER" type="collection"/>
         <argument key="ROLE_ADMIN" type="collection">
           <argument>ROLE_USER</argument>
         </argument>
@@ -1949,12 +1951,8 @@
           <argument>ROLE_ADMIN</argument>
           <argument>ROLE_ALLOWED_TO_SWITCH</argument>
         </argument>
-        <argument key="ROLE_COMPANY" type="collection">
-          <argument>ROLE_USER</argument>
-        </argument>
-        <argument key="ROLE_STUDENT" type="collection">
-          <argument>ROLE_USER</argument>
-        </argument>
+        <argument key="ROLE_COMPANY" type="collection"/>
+        <argument key="ROLE_STUDENT" type="collection"/>
       </argument>
     </service>
     <service id="security.firewall" class="Symfony\Component\Security\Http\Firewall">
@@ -2039,7 +2037,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Core\User\User" public="false">
             <argument>user</argument>
-            <argument>userpass</argument>
+            <argument>a</argument>
             <argument type="collection">
               <argument>ROLE_USER</argument>
             </argument>
@@ -2050,7 +2048,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Core\User\User" public="false">
             <argument>admin</argument>
-            <argument>adminpass</argument>
+            <argument>a</argument>
             <argument type="collection">
               <argument>ROLE_ADMIN</argument>
             </argument>
@@ -2079,7 +2077,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>55ddbb688e4ed1.24975041</argument>
+            <argument>55ddcf10a669f6.71873578</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -2731,6 +2729,7 @@
     <service id="sensio_framework_extra.converter.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener">
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="sensio_framework_extra.converter.manager"/>
+      <argument>true</argument>
     </service>
     <service id="sensio_framework_extra.converter.manager" class="Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterManager">
       <call method="add">
@@ -2755,8 +2754,19 @@
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="service_container"/>
     </service>
-    <service id="sensio_framework_extra.cache.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener">
+    <service id="sensio_framework_extra.cache.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\HttpCacheListener">
       <tag name="kernel.event_subscriber"/>
+    </service>
+    <service id="sensio_framework_extra.security.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\SecurityListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument>null</argument>
+      <argument type="service">
+        <service class="Sensio\Bundle\FrameworkExtraBundle\Security\ExpressionLanguage" public="false"/>
+      </argument>
+      <argument type="service" id="security.authentication.trust_resolver" on-invalid="null"/>
+      <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
+      <argument type="service" id="security.token_storage" on-invalid="null"/>
+      <argument type="service" id="security.authorization_checker" on-invalid="null"/>
     </service>
     <service id="web_profiler.controller.profiler" class="Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController">
       <argument type="service" id="router" on-invalid="null"/>

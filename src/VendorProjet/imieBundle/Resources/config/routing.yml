@@ -1,11 +1,45 @@
-_skills:
+_Skills:
     resource: "@VendorProjetimieBundle/Controller/SkillController.php"
     type:     annotation
-    
+
+_SkillType:
+    resource: "@VendorProjetimieBundle/Controller/SkillTypeController.php"
+    type:     annotation
+
 _Offer:
     resource: "@VendorProjetimieBundle/Controller/OfferController.php"
+    type:     annotation
+
+_TypeOffer:
+    resource: "@VendorProjetimieBundle/Controller/TypeOfferController.php"
     type:     annotation
 
 _Accueil:
     resource: "@VendorProjetimieBundle/Controller/AccueilController.php"
     type:     annotation    
+
+_BusinessSector:
+    resource: "@VendorProjetimieBundle/Controller/BusinessSectorController.php"
+    type:     annotation 
+
+_Company:
+    resource: "@VendorProjetimieBundle/Controller/CompanyController.php"
+    type:     annotation
+
+_CV:
+    resource: "@VendorProjetimieBundle/Controller/CVController.php"
+    type:     annotation
+
+_Department:
+    resource: "@VendorProjetimieBundle/Controller/DepartmentController.php"
+    type:     annotation
+
+_Experiment:
+    resource: "@VendorProjetimieBundle/Controller/ExperimentController.php"
+    type:     annotation
+
+
+#LES ERREURS
+_Errors:
+    resource: "@VendorProjetimieBundle/Controller/ErrorsController.php"
+    type:     annotation 

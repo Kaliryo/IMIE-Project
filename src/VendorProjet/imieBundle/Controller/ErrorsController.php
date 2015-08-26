@@ -9,20 +9,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Accueil controller.
+ * Error controller.
  *
  */
-class AccueilController extends Controller
+class ErrorsController extends Controller
 {
     /**
-     * Accueil page
+     * Error page bad right to acces
      *
-     * @Route("/home", name="accueil")
+     * @Route("/badPermission", name="bad_permission")
      * @Method("GET")
      * @Template("VendorProjetimieBundle:TypeOffer:new.html.twig")
      */
     public function indexAction()
     {
-        return $this->render('VendorProjetimieBundle:Accueil:Accueil.html.twig', array());
+        return $this->render('VendorProjetimieBundle:Errors:BadPermission.html.twig', array()); 
     }   
 }

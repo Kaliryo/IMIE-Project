@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use VendorProjet\imieBundle\Entity\Offer;
 use VendorProjet\imieBundle\Form\OfferType;
 
+
+
 /**
  * Offer controller.
  *
@@ -43,7 +45,7 @@ class OfferController extends Controller
      * @Template("VendorProjetimieBundle:Offer:new.html.twig")
      */
     public function createAction(Request $request)
-    {
+    {        
         $entity = new Offer();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -90,6 +92,11 @@ class OfferController extends Controller
      */
     public function newAction()
     {
+        // On vérifie que l'utilisateur dispose bien du rôle ROLE_AUTEUR
+        if (!$this->get('security.context')->isGranted('ROLE_COMPANY')) {
+          return $this->redirect($this->generateUrl('bad_permission'));
+        }
+
         $entity = new Offer();
         $form   = $this->createCreateForm($entity);
 
@@ -107,7 +114,7 @@ class OfferController extends Controller
      * @Template()
      */
     public function showAction($id)
-    {
+    {        
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('VendorProjetimieBundle:Offer')->find($id);
@@ -133,6 +140,11 @@ class OfferController extends Controller
      */
     public function editAction($id)
     {
+        // On vérifie que l'utilisateur dispose bien du rôle ROLE_COMPANY
+        if (!$this->get('security.context')->isGranted('ROLE_COMPANY')) {
+          return $this->redirect($this->generateUrl('bad_permission'));
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('VendorProjetimieBundle:Offer')->find($id);
@@ -178,6 +190,11 @@ class OfferController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        // On vérifie que l'utilisateur dispose bien du rôle ROLE_COMPANY
+        if (!$this->get('security.context')->isGranted('ROLE_COMPANY')) {
+          return $this->redirect($this->generateUrl('bad_permission'));
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('VendorProjetimieBundle:Offer')->find($id);
@@ -209,7 +226,12 @@ class OfferController extends Controller
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
-    {
+    {  
+        // On vérifie que l'utilisateur dispose bien du rôle ROLE_COMPANY
+        if (!$this->get('security.context')->isGranted('ROLE_COMPANY')) {
+          return $this->redirect($this->generateUrl('bad_permission'));
+        }
+        
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 

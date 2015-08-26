@@ -13,6 +13,13 @@ _configurator:
 _main:
     resource: routing.yml
 
+root:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /home
+        permanent: true
+
 # VendorProjetimieBundle routes
 _imie-project:
     resource: "@VendorProjetimieBundle/Resources/config/routing.yml"
